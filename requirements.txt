@@ -1,0 +1,11 @@
+sentence-transformers==2.2.2
+elasticsearch==8.6.0
+scikit-learn==1.2.0
+pyspellchecker==0.7.1
+autocorrect==2.6.1
+pandas==1.5.2
+nltk==3.8.1
+sinling==0.3.6
+transformers==4.25.1
+translate==3.6.1
+h2o_wave==0.242.

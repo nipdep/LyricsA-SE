@@ -1,0 +1,13 @@
+# ignore data & tmp dirs
+tmp/
+data/**.txt
+data/**.pdf
+data/**.csv
+data/**.docx
+data/**.xlsx
+data/*/*.txt
+
+# ignore caches
+__pycache__/
+
+
