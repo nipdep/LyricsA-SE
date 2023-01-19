@@ -8,7 +8,8 @@ from .utilities import *
 
 def page1_reader(q, details=None):
     data = {'q': q.args._q,
-            'domain': q.args._opt1} 
+            'domain': q.args._opt1,
+            'n': q.args._opt2} 
     return data 
 
 
@@ -19,9 +20,12 @@ def page1_search_box(q, details=None):
     items = [
         # ui.text_l("Search Query"),
         ui.textbox(name='_q', label='Query', icon='Play', spellcheck=True, placeholder='General Domain used in Metaphor'),
-        ui.choice_group(name='_opt1', label='Domain Type', choices=[
-            ui.choice(name=x, label=x) for x in ['Subject-Domain', 'Object-Domain']
-        ], required=True, inline=True, value='Subject-Domain'),
+        ui.inline([
+            ui.choice_group(name='_opt1', label='Domain Type', choices=[
+                ui.choice(name=x, label=x) for x in ['Subject-Domain', 'Object-Domain']
+            ], required=True, inline=True, value='Subject-Domain'),
+            ui.spinbox(name='_opt2', label='# records ', min=0, max=25, step=1, value=0, width='20px', trigger=False)
+        ], justify='around'),
         ui.buttons([ui.button(name='page1_search', label='Search', primary=True, icon='DocumentSearch')], justify='center')
     ]
     card = ui.form_card(
@@ -265,8 +269,9 @@ def page1_qeury_processor(q, details=None):
         opt = 'Annotation.Object-english'
 
     q = {"match": {opt: data['q']}}
+
     t1 = datetime.now()
-    resp = query_search(q)
+    resp = query_search(q, data['n'])
     t2 = datetime.now()
     # search information
     delta_t = (t2-t1).total_seconds()

@@ -15,9 +15,12 @@ from transformers import AutoTokenizer, AutoModelWithLMHead
 es = Elasticsearch(hosts="http://localhost:9200")
 index = 'song-corpus'
 
-def query_search(q):
+def query_search(q, n=0):
     try:
-        resp = es.search(index=index, query=q)
+        if n == 0:
+            resp = es.search(index=index, query=q)
+        else:
+            resp = es.search(index=index, query=q, size=n)
         resp = resp['hits']['hits']
         # print('hits >> ', resp)
     except Exception as e:
